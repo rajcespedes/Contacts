@@ -1,10 +1,10 @@
-const 	express 	= 	require('express'),
-		app 		= 	express(),
-		contact 	= 	require('./routes/contactRoutes'),
-		bodyParser 	= 	require('body-parser'),
-		mongoose 	=	require('mongoose'),
-		Group		=	require('./models/group'),
-		Contact     =	require('./models/contact');
+const 	express 		= 	require('express'),
+		app 			= 	express(),
+		contact 		= 	require('./routes/contactRoutes'),
+		bodyParser 		= 	require('body-parser'),
+		mongoose 		=	require('mongoose'),
+		Group			=	require('./models/group'),
+		Contact     	=	require('./models/contact');
 
 
 mongoose.connect('mongodb://localhost:27017/contacts',{useNewUrlParser: true, useUnifiedTopology: true});
@@ -25,7 +25,6 @@ app.set('view engine','ejs');
 app.use(express.static('public'));
 
 app.use(contact);
-
 
 app.listen(3000);
 
