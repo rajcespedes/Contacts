@@ -1,0 +1,11 @@
+<%- include('../partials/header') %>
+
+<ul class="list-group container col-2">
+	<li class="list-group-item full"><a href="/contacts/new">Crear contacto</a></li>
+	<% contact.forEach(function(contact){ %>
+		
+	<li class="list-group-item"> <a href="/contact/<%=contact._id%>"><%= contact.name %> <%= contact.lastname %></a> </li>
+
+	<% }); %>
+
+</ul>

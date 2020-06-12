@@ -1,0 +1,12 @@
+<%- include('../partials/header') %>
+
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= contact.name %> <%= contact.lastname %></h5>
+    <h6 class="card-subtitle mb-2 text-muted">Grupo: <%= contact.group.name %></h6>
+    <p class="card-text">Número: <%= contact.number %></p>
+    <p class="card-text">Correo: <%= contact.email %></p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
