@@ -7,7 +7,9 @@ const 	express 		= 	require('express'),
 		Contact     	=	require('./models/contact');
 
 
-mongoose.connect('mongodb://localhost:27017/contacts',{useNewUrlParser: true, useUnifiedTopology: true});
+// mongoose.connect('mongodb://localhost:27017/contacts',{useNewUrlParser: true, useUnifiedTopology: true});
+
+mongoose.connect('mongodb+srv://user1:FKOWAHu7yrGXuOvT@cluster0-wmsar.mongodb.net/contacts?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true});
 
 var db = mongoose.connection;
 

@@ -58,13 +58,17 @@ router.get('/contact/:id/edit',function(req,res){
 });
 
 router.delete('/contact/:id',function(req,res){
-	// alert('¿Está seguro?');
-	// res.redirect('/contacts');
-	res.send('reached delete route');
+	Contact.findByIdAndRemove(req['params']['id'],function(err,deleted){
+		if(!err) {
+			res.redirect('/contacts');
+		} else {
+			console.log(err);
+		}
+	});
 });
 
 router.put('/contact/:id',function(req,res){
-	Contact.findByIdandUpdate(req['params']['id'],contact,function(err,edited){
+	Contact.findByIdAndUpdate(req['params']['id'],req.body.contact,function(err,edited){
 		if(!err){
 			res.redirect('/contacts');
 		} else {
@@ -78,7 +82,7 @@ router.put('/contact/:id',function(req,res){
 router.get('/contact/:id',function(req,res){
 	Contact.findById(req['params']['id'],function(err,found){
 		if(!err){
-			res.render('show',{contact: found});
+			res.render('show',{ contact: found });
 		} else {
 			console.log(err);
 		}
