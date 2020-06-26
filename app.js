@@ -7,9 +7,7 @@ const 	express 		= 	require('express'),
 		Contact     	=	require('./models/contact');
 
 
-// mongoose.connect('mongodb://localhost:27017/contacts',{useNewUrlParser: true, useUnifiedTopology: true});
-
-mongoose.connect('mongodb+srv://user1:FKOWAHu7yrGXuOvT@cluster0-wmsar.mongodb.net/contacts?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.DATABASEURL,{useNewUrlParser: true, useUnifiedTopology: true});
 
 var db = mongoose.connection;
 
@@ -29,18 +27,3 @@ app.use(express.static('public'));
 app.use(contact);
 
 app.listen(process.env.PORT || 3000, process.env.IP);
-
-
-// Contact.remove({},function(err){
-// 	console.log('contacts removed');
-// });
-
-// Group.create({
-// 	name: 'players'
-// },function(err,createdGroup){
-// 	if(!err) {
-// 		console.log(createdGroup);
-// 	} else {
-// 		console.log(err);
-// 	}
-// });  

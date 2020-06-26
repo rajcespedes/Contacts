@@ -6,9 +6,13 @@
     <h6 class="card-subtitle mb-2 text-muted">Grupo: <%= contact.group.name %></h6>
     <p class="card-text">Número: <%= contact.number %></p>
     <p class="card-text">Correo: <%= contact.email %></p>
-    <form action="/contact/<%= contact._id %>?_method=DELETE" method="POST">
-    	<input type="submit" value="Eliminar">
-    </form>
-    <a href="/contact/<%= contact._id %>/edit" class="card-link">Editar</a>
+    <div class="row">
+    	<div class="col">
+    		<form action="/contact/<%= contact._id %>?_method=DELETE" method="POST">
+    			<input class="btn btn-info" type="submit" value="Eliminar">
+    		</form>
+    		<a href="/contact/<%= contact._id %>/edit" class="btn btn-danger">Editar</a>
+    	</div>
+    </div>
   </div>
 </div>

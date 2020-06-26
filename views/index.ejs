@@ -1,11 +1,51 @@
 <%- include('../partials/header') %>
 
-<ul class="list-group container col-2">
-	<li class="list-group-item full"><a href="/contacts/new">Crear contacto</a></li>
-	<% contact.forEach(function(contact){ %>
-		
-	<li class="list-group-item"> <a href="/contact/<%=contact._id%>"><%= contact.name %> <%= contact.lastname %></a> </li>
 
-	<% }); %>
+<% if (successMessage && successMessage.length > 0 ) { %>
+	<div class="alert alert-success container">
+		<%= successMessage %>
+	</div>
+<% } %>
 
-</ul>
+
+<table class="table table-striped container">
+	
+  <thead>
+  	<tr>
+  		<th id="no-border" class="pl-0 pb-1"><a href="/contacts/new" class="btn btn-success">Crear contacto</a></th>
+  	</tr>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido</th>
+      <th scope="col">Número</th>
+      <th scope="col">e-Mail</th>
+      <th scope="col">Grupo</th>
+      <th scope="col" colspan="2">Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% contact.forEach(function(contact){ %>
+    <tr>
+      	<td> <%= contact.name %></td>
+      	<td><%= contact.lastname %></td>
+      	<td><%= contact.number %></td>
+      	<td><%= contact.email %></td>
+      	<td><%= contact.group.name %></td>
+      	<td>
+      		<div class="row">
+      			<a href="/contact/<%= contact._id %>/edit" class="btn btn-sm btn-info mr-1">Editar</a>
+	      		<a href="#">
+	      			<form action="/contact/<%= contact._id %>?_method=DELETE" method="POST">
+	    				<input class="btn btn-sm btn-danger" type="submit" value="Eliminar">
+	    			</form>
+	      		</a>      			
+      		</div>      		
+      	</td>
+    </tr>
+  	  <% }); %>
+  </tbody>
+</table>
+
+
+
+    		
