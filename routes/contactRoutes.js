@@ -3,25 +3,27 @@ const 	express 		= require('express'),
 		bodyParser		= require('body-parser'),
 		Contact 		= require('../models/contact'),
 		methodOverride	= require('method-override'),
-		Group       	= require('../models/group'),
-		session			= require('express-session'),
-		flash			= require('connect-flash');
+		Group       	= require('../models/group');
+
+
+		// session			= require('express-session'),
+		// flash			= require('connect-flash');
 
 
 
-router.use(session ({cookie: {maxAge: 6000},
-			secret: 'any',
-			resave: false,
-			saveUninitialized: false
-		}));
+// router.use(session ({cookie: {maxAge: 6000},
+// 			secret: 'any',
+// 			resave: false,
+// 			saveUninitialized: false
+// 		}));
 
-router.use(flash());
+// router.use(flash());
 
-router.use(function(req,res,next){
-	res.locals.successMessage = req.flash('success');
-	res.locals.errorMessage = req.flash('error');
-	next();
-});
+// router.use(function(req,res,next){
+// 	res.locals.successMessage = req.flash('success');
+// 	res.locals.errorMessage = req.flash('error');
+// 	next();
+// });
 
 router.use(methodOverride('_method'));
 
@@ -52,12 +54,16 @@ var inputNumber = "";
 router.post('/contacts',function(req,res){
 	inputNumber = req.body.contact['number'];
 	console.log(validateNumber.test(inputNumber));
-	// if(validateNumber.test(inputNumber)) {
+	if(validateNumber.test(inputNumber)) {
 	Contact.create(req.body.contact,function(err,contact){
 		if(!err){
 			Group.create(req.body.contact['group'],function(err,newGroup){
 				if(!err) {
-					res.redirect('/contacts');		
+					// res.redirect('/contacts');		
+				} else {
+					console.log(err);
+					// req.flash('error'S,err);
+					// res.redirect('/contacts');		
 				}
 			});
 			contact.group.name = req.body.contact['group'];
@@ -65,13 +71,14 @@ router.post('/contacts',function(req,res){
 			req.flash('success','Nuevo contacto agregado');
 			res.redirect('/contacts');
 		} else {
-			console.log(err);
-			
+			req.flash('error',err);
+			res.redirect('/contacts');			
 		}
 	});
-	// } else {
-		// req.flash('error','Formato incorrecto de número');
-	// }
+	} else {
+		req.flash('error','Formato incorrecto de número');
+		res.redirect('/contacts/new');
+	}
 });
 
 router.get('/new',function(req,res){
