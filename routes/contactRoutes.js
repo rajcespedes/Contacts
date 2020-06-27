@@ -49,36 +49,43 @@ router.get('/contacts/new',function(req,res){
 
 
 var validateNumber = /\d+/;
+var inputName = "";
 var inputNumber = "";
 
 router.post('/contacts',function(req,res){
+	inputName = req.body.contact['name'];
 	inputNumber = req.body.contact['number'];
-	console.log(validateNumber.test(inputNumber));
-	if(validateNumber.test(inputNumber)) {
-	Contact.create(req.body.contact,function(err,contact){
-		if(!err){
-			Group.create(req.body.contact['group'],function(err,newGroup){
-				if(!err) {
-					// res.redirect('/contacts');		
+	if (!validateNumber.test(inputName)){
+			if(validateNumber.test(inputNumber)) {
+				Contact.create(req.body.contact,function(err,contact){
+				if(!err){
+					Group.create(req.body.contact['group'],function(err,newGroup){
+						if(!err) {
+							// res.redirect('/contacts');		
+						} else {
+							console.log(err);
+							// req.flash('error'S,err);
+							// res.redirect('/contacts');		
+						}
+					});
+					contact.group.name = req.body.contact['group'];
+					contact.save();
+					req.flash('success','Nuevo contacto agregado');
+					res.redirect('/contacts');
 				} else {
-					console.log(err);
-					// req.flash('error'S,err);
-					// res.redirect('/contacts');		
+					req.flash('error',err);
+					res.redirect('/contacts');			
 				}
-			});
-			contact.group.name = req.body.contact['group'];
-			contact.save();
-			req.flash('success','Nuevo contacto agregado');
-			res.redirect('/contacts');
-		} else {
-			req.flash('error',err);
-			res.redirect('/contacts');			
-		}
-	});
+				});
+			} else {
+				req.flash('error','Formato incorrecto de número');
+				res.redirect('/contacts/new');
+				}
 	} else {
-		req.flash('error','Formato incorrecto de número');
+		req.flash('error','Formato incorrecto de nombre');
 		res.redirect('/contacts/new');
 	}
+
 });
 
 router.get('/new',function(req,res){
@@ -98,6 +105,7 @@ router.get('/contact/:id/edit',function(req,res){
 router.delete('/contact/:id',function(req,res){
 	Contact.findByIdAndRemove(req['params']['id'],function(err,deleted){
 		if(!err) {
+			req.flash('success','Contacto eliminado');
 			res.redirect('/contacts');
 		} else {
 			console.log(err);
@@ -106,16 +114,31 @@ router.delete('/contact/:id',function(req,res){
 });
 
 router.put('/contact/:id',function(req,res){
+	inputName = req.body.contact['name'];
 	inputNumber = req.body.contact['number'];
-	console.log(validateNumber.test(inputNumber));
-	Contact.findByIdAndUpdate(req['params']['id'],req.body.contact,function(err,edited){
-		if(!err){
-				res.redirect('/contacts');		
+	if(!validateNumber.test(inputName)) {
+		if(validateNumber.test(inputNumber)) {
+			Contact.findByIdAndUpdate(req['params']['id'],req.body.contact,function(err,edited){
+				if(!err){
+					req.flash('success','Contacto editado');
+					res.redirect('/contacts');		
+				} else {
+					console.log(err);
+					}
+			});
+
+		} else {
+			req.flash('error','Formato incorrecto de número');
+			// res.locals.errorMessage = req.flash();
+			res.redirect(`/contact/${req['params']['id']}/edit`)
+			// res.redirect('/contacts');
 		}
-		 else {
-			console.log(err);
-		}
-	});
+
+	} else {
+		req.flash('error','Formato incorrecto de nombre');
+		res.redirect(`/contact/${req['params']['id']}/edit`);
+	}
+
 });
 
 
