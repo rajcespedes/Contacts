@@ -10,8 +10,8 @@ const 	express 		= 	require('express'),
 
 
 mongoose.connect(
-	'mongodb://localhost:27017/contacts'
-	// process.env.DATABASEURL
+	// 'mongodb://localhost:27017/contacts'
+	process.env.DATABASEURL
 	,{useNewUrlParser: true, useUnifiedTopology: true});
 
 var db = mongoose.connection;
