@@ -32,10 +32,12 @@ router.get('/contacts/new',function(req,res){
 var validateNumber = /\d+/;
 var inputName = "";
 var inputNumber = "";
+// var contactHold;
 
 router.post('/contacts',function(req,res){
 	inputName = req.body.contact['name'];
 	inputNumber = req.body.contact['number'];
+	contactHold = req.body.contact;
 	if (!validateNumber.test(inputName)){
 			if(validateNumber.test(inputNumber)) {
 				Contact.create(req.body.contact,function(err,contact){
@@ -47,7 +49,7 @@ router.post('/contacts',function(req,res){
 							console.log(err);
 						}
 					});
-					contact.group.name = req.body.contact['group'];
+					contact.group.name = req.body.contact['group']['name'];
 					contact.save();
 					req.flash('success','Nuevo contacto agregado');
 					res.redirect('/contacts');
@@ -58,10 +60,18 @@ router.post('/contacts',function(req,res){
 				});
 			} else {
 				req.flash('error','Formato incorrecto de número');
+				req.flash('contactName',req.body.contact['name']);
+				req.flash('contactLastname',req.body.contact['lastname']);
+				req.flash('contactEmail',req.body.contact['email']);
+				req.flash('contactGroup',req.body.contact['group']['name']);
 				res.redirect('/contacts/new');
 				}
 	} else {
 		req.flash('error','Formato incorrecto de nombre');
+		req.flash('contactLastname',req.body.contact['lastname']);
+		req.flash('contactNumber',req.body.contact['number']);
+		req.flash('contactEmail',req.body.contact['email']);
+		req.flash('contactGroup',req.body.contact['group']['name']);
 		res.redirect('/contacts/new');
 	}
 

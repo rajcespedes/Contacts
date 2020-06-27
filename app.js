@@ -10,8 +10,8 @@ const 	express 		= 	require('express'),
 
 
 mongoose.connect(
-	// 'mongodb://localhost:27017/contacts'
-	process.env.DATABASEURL
+	'mongodb://localhost:27017/contacts'
+	// process.env.DATABASEURL
 	,{useNewUrlParser: true, useUnifiedTopology: true});
 
 var db = mongoose.connection;
@@ -33,6 +33,11 @@ app.use(flash());
 app.use(function(req,res,next){
 	res.locals.successMessage = req.flash('success');
 	res.locals.errorMessage = req.flash('error');
+	res.locals.contactName = req.flash('contactName');
+	res.locals.contactLastname = req.flash('contactLastname');
+	res.locals.contactNumber = req.flash('contactNumber');
+	res.locals.contactEmail = req.flash('contactEmail');
+	res.locals.contactGroup = req.flash('contactGroup');
 	next();
 });
 
