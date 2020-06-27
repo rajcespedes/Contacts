@@ -36,9 +36,9 @@ app.use(function(req,res,next){
 	next();
 });
 
-Contact.remove({},function(error,removed){
-	console.log('contacts removed');
-});
+// Contact.remove({},function(error,removed){
+// 	console.log('contacts removed');
+// });
 
 
 app.use(bodyParser.urlencoded({extended: true}));

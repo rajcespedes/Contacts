@@ -6,25 +6,6 @@ const 	express 		= require('express'),
 		Group       	= require('../models/group');
 
 
-		// session			= require('express-session'),
-		// flash			= require('connect-flash');
-
-
-
-// router.use(session ({cookie: {maxAge: 6000},
-// 			secret: 'any',
-// 			resave: false,
-// 			saveUninitialized: false
-// 		}));
-
-// router.use(flash());
-
-// router.use(function(req,res,next){
-// 	res.locals.successMessage = req.flash('success');
-// 	res.locals.errorMessage = req.flash('error');
-// 	next();
-// });
-
 router.use(methodOverride('_method'));
 
 
@@ -61,11 +42,9 @@ router.post('/contacts',function(req,res){
 				if(!err){
 					Group.create(req.body.contact['group'],function(err,newGroup){
 						if(!err) {
-							// res.redirect('/contacts');		
+
 						} else {
 							console.log(err);
-							// req.flash('error'S,err);
-							// res.redirect('/contacts');		
 						}
 					});
 					contact.group.name = req.body.contact['group'];
@@ -129,9 +108,7 @@ router.put('/contact/:id',function(req,res){
 
 		} else {
 			req.flash('error','Formato incorrecto de número');
-			// res.locals.errorMessage = req.flash();
 			res.redirect(`/contact/${req['params']['id']}/edit`)
-			// res.redirect('/contacts');
 		}
 
 	} else {

@@ -1,9 +1,7 @@
 <%- include('../partials/header') %>
 
-<!-- <body> -->
-
 <% if (errorMessage && errorMessage.length > 0) { %>
-	<div class="alert alert-danger container">
+	<div class="alert alert-danger container mt-2">
 		<%= errorMessage %>
 	</div>
 <% } %>
@@ -41,6 +39,3 @@
   	</div>
   	<input type="submit" value="Guardar" class="btn btn-info">
 </form>
-
-<!-- </body> -->
-<!-- </html> --> 
