@@ -1,5 +1,3 @@
-# Contacts
-
 <h1>Contacts web app </h1>
 
 <p>Simple web app with CRUD functions for contacts</p>
