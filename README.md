@@ -9,18 +9,18 @@
 
 <h3> Front-end </h3>
 
-<ol>
+<ul>
   <li> 
     HTML
   </li>
   <li>
     Boostrap for CSS styling
   </li>
-</ol>
+</ul>
 
 <h3> Back-end </h3>
 
-<ol>
+<ul>
   <li> 
     Node
   </li>
@@ -30,11 +30,11 @@
   <li>
     MongoDB for the database
   </li>
-</ol>
+</ul>
 
 <p>Other tools used include the following: </p>
 
-<ol>
+<ul>
   <li> 
     connect-flash for alert messages
   </li>
@@ -50,4 +50,4 @@
   <li>
     And express-session to enable connect-flash functions
   </li>
-</ol>
+</ul>
