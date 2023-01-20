@@ -6,8 +6,11 @@ const 	express 		= 	require('express'),
 		Group			=	require('./models/group'),
 		Contact     	=	require('./models/contact'),
 		session			= 	require('express-session'),
-		flash			= 	require('connect-flash');
+		flash			= 	require('connect-flash'),
+		dotenv			= 	require('dotenv');
 
+
+dotenv.config();
 
 mongoose.connect(
 	// 'mongodb://localhost:27017/contacts'
