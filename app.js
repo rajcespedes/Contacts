@@ -7,7 +7,7 @@ const 	express 		= 	require('express'),
 		Contact     	=	require('./models/contact'),
 		session			= 	require('express-session'),
 		flash			= 	require('connect-flash');
-		// dotenv			= 	require('dotenv');
+		// dotenv			= 	require('dotenv')
 
 
 // dotenv.config();
