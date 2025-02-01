@@ -9,23 +9,29 @@ const 	express 		= require('express'),
 router.use(methodOverride('_method'));
 
 
-router.get('/',function(req,res){
-	res.redirect('/contacts');
+router.get('/',(req,res) => {
+	return new Promise ((resolve) => {
+		res.redirect('/contacts');
+		resolve();
+	})
 });
 
-router.get('/contacts',function(req,res){
-	Contact.find({},function(err,foundContact){
-		if(!err){
-			res.render('index',{contact: foundContact});
-		} else {
-			console.log('err');
-		}
-	});
-	
+router.get('/contacts',(req,res) => {
+	Contact.find({})
+	.then(foundContact => {
+		res.render('index',{contact: foundContact});
+	})
+	.catch(err => {
+		console.log('err');
+	})
 });
 
-router.get('/contacts/new',function(req,res){
-	res.render('newContact');
+router.get('/contacts/new', (req,res) => {
+	return new Promise ((resolve) => {
+		res.render('newContact');
+		resolve();
+	}
+)	
 });
 
 
@@ -77,19 +83,23 @@ router.post('/contacts',function(req,res){
 
 });
 
-router.get('/new',function(req,res){
-	res.render('newContact');
+router.get('/new', (req,res) => {
+	return new Promise ((resolve) => {
+		res.render('newContact');
+		resolve();
+	})
 });
 
-router.get('/contact/:id/edit',function(req,res){
-	Contact.findById(req['params']['id']).populate('group').exec(function(err,found){
-		if(!err){
-			res.render('edit', { contact: found });
-		} else {
-			console.log(err);
-		}
+router.get('/contact/:id/edit', (req,res) => {
+	Contact.findById(req['params']['id']).populate('group').exec()
+	.then( found => {
+		res.render('edit', { contact: found });
+		})
+	.catch( err => {
+		console.log(err);
+		});
+
 	});
-});
 
 router.delete('/contact/:id',function(req,res){
 	Contact.findByIdAndRemove(req['params']['id'],function(err,deleted){
