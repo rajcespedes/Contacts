@@ -159,5 +159,7 @@ router.get('/contact/:id', (req,res) => {
 		});
 });
 
+});
+
 
 module.exports = router;
