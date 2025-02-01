@@ -13,8 +13,7 @@ const 	express 		= 	require('express'),
 // dotenv.config();
 
 mongoose.connect(
-	process.env.DATABASEURL ||
-	'mongodb+srv://userx:VYb6RAGpIyAW9r3X@cluster0.zbog0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+	process.env.DATABASEURL
 	,{useNewUrlParser: true, useUnifiedTopology: true});
 
 var db = mongoose.connection;
