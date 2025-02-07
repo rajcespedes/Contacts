@@ -12,9 +12,7 @@ const 	express 		= 	require('express'),
 
 dotenv.config();
 
-mongoose.connect(
-	process.env.DATABASEURL
-	,{useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.DATABASEURL);
 
 var db = mongoose.connection;
 
